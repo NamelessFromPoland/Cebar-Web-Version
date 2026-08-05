@@ -2,25 +2,30 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<title>Cebar</title>
 	<link rel="stylesheet" href="style.css">
     <script src="coi-serviceworker.js"></script>
     <script>
         function lockToPortrait() {
             if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock("portrait").catch(function(error) {
-                console.log("Portrait lock blocked or unsupported:", error);
-            });
+                screen.orientation.lock("portrait")
+                .then(() => console.log("Orientation locked to portrait successfully"))
+                .catch(function(error) {
+                    console.log("Portrait lock blocked or unsupported:", error);
+                });
+            }
         }
-}
-// Trigger this function when the user clicks the canvas to start the game
-document.getElementById('canvas').addEventListener('click', lockToPortrait);
+
+        window.addEventListener('click', lockToPortrait);
+        window.addEventListener('touchstart', lockToPortrait);
     </script>
 </head>
 
 <body>
     <div class="wrapper">
-        <iframe id="godot-frame" src="Cebar.html"></iframe>
+        <iframe id="godot-frame" src="Cebar.html" allow="screen-wake-lock; orientation-lock; fullscreen"></iframe>
     </div>
 </body>
 </html>
+
