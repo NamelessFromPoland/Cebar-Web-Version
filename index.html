@@ -5,6 +5,17 @@
 	<title>Cebar</title>
 	<link rel="stylesheet" href="style.css">
     <script src="coi-serviceworker.js"></script>
+    <script>
+        function lockToPortrait() {
+            if (screen.orientation && screen.orientation.lock) {
+                screen.orientation.lock("portrait").catch(function(error) {
+                console.log("Portrait lock blocked or unsupported:", error);
+            });
+        }
+}
+// Trigger this function when the user clicks the canvas to start the game
+document.getElementById('canvas').addEventListener('click', lockToPortrait);
+    </script>
 </head>
 
 <body>
